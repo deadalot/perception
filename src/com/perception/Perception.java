@@ -1,6 +1,5 @@
 package com.perception;
 ;
-import com.sun.tools.javac.jvm.ClassFile;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -25,7 +24,7 @@ public class Perception extends JPanel {
         frame.setSize(300, 400);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        System.out.println("Pannkakor");
 
         // Game loop
         while (true) {
