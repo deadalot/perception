@@ -39,17 +39,27 @@ public class Perception extends JPanel {
 
     private void moveBall() {
         int moveRight = 0;
-        int moveOther = 0;
+        int moveDown = 0;
+        int moveLeft = 0;
+        int moveUp = 0;
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        if (input.contains("e")) {
+        if (input.contains("d")) {
             moveRight++;
         }
-        if (input.contains("f")) {
-            moveOther++;
+        if (input.contains("s")) {
+            moveDown++;
+        }
+        if (input.contains("w")){
+            moveUp++;
+        }
+        if (input.contains("a")){
+            moveLeft++;
         }
         x += moveRight;
-        y += moveOther;
+        y += moveDown;
+        x -= moveLeft;
+        y -= moveUp;
     }
 
 
