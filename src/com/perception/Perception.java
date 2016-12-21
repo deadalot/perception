@@ -2,9 +2,12 @@ package com.perception;
 
 ;
 
+import com.perception.input.InputManager;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.KeyEvent;
 import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,7 +23,15 @@ public class Perception extends JPanel {
     public static void main(String[] args) throws InterruptedException {
 
         JFrame frame = new JFrame("Perception - " + VERSION);
+
+        JPanel panel = new JPanel();
+        frame.getContentPane().add(panel);
+        InputManager input = new InputManager();
+        panel.addKeyListener(input);
+
         Perception game = new Perception();
+
+
 
         frame.add(game);
         frame.setSize(300, 400);
@@ -28,38 +39,54 @@ public class Perception extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         System.out.println("Pannkakor");
 
+        panel.setFocusable(true);
+        panel.requestFocusInWindow();
+
+        boolean isRunning = true;
+
         // Game loop
-        while (true) {
-            game.moveBall();
+        while (isRunning) {
+
+            isRunning = game.moveBall(input);
+
             game.repaint();
+
             Thread.sleep(10);
+            
         }
+
+        System.exit(0);
     }
 
 
-    private void moveBall() {
+    private boolean moveBall(InputManager input) {
         int moveRight = 0;
         int moveDown = 0;
         int moveLeft = 0;
         int moveUp = 0;
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        if (input.contains("d")) {
+       // Scanner scanner = new Scanner(System.in);
+       // String input = scanner.nextLine();
+        if (input.isPressed(KeyEvent.VK_D)) {
             moveRight++;
         }
-        if (input.contains("s")) {
+        if (input.isPressed(KeyEvent.VK_S)) {
             moveDown++;
         }
-        if (input.contains("w")){
+        if (input.isPressed(KeyEvent.VK_W)) {
             moveUp++;
         }
-        if (input.contains("a")){
+        if (input.isPressed(KeyEvent.VK_A)) {
             moveLeft++;
+        }
+        if (input.isPressed(KeyEvent.VK_ESCAPE)) {
+            return false;
         }
         x += moveRight;
         y += moveDown;
         x -= moveLeft;
         y -= moveUp;
+
+        return true;
     }
 
 
